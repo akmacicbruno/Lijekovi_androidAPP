@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">CareOnGo</string>
+    <!-- LOG IN ACTIVITY -->
+    <string name="email" translatable="false">E-mail</string>
+    <string name="password">Password</string>
+    <string name="btn_log_in">Log in</string>
+    <string name="show_password">Show password</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="click_to_register">Click here to <u>register</u>.</string>
+    <!-- REGISTER ACTIVITY -->
+    <string name="full_name">Enter full name</string>
+    <string name="oib">Enter OIB</string>
+    <string name="reg_email">Enter e-mail address</string>
+    <string name="reg_pass">Enter password</string>
+    <string name="btn_reg">Register</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="login_activity">Click here to <u>log in</u>.</string>
+    <!-- USER INFO VIEW -->
+    <string name="no_oib">OIB not found</string>
+    <string name="no_name">Name not found</string>
+    <!-- MEDICINE INFO VIEW & ACTIVITY MED DETAIL-->
+    <string name="no_medicine_name">Medicine not found</string>
+    <string name="lbl_producer">Producer:</string>
+    <string name="no_producer">Producer not found</string>
+    <string name="more">More >></string>
+    <string name="lbl_usage">Usage:</string>
+    <string name="no_usage">Usage not found</string>
+    <string name="lbl_code">Code ID:</string>
+    <string name="no_code_id">Code ID not found</string>
+    <string name="lbl_quantity">Available Quantity:</string>
+    <string name="no_quantity">Quantity</string>
+    <string name="lbl_usage_day">Day/s:</string>
+    <string name="no_usage_day">Usage day/s not found</string>
+    <string name="lbl_usage_time">Time:</string>
+    <string name="no_usage_time">Usage time not found</string>
+    <string name="lbl_medicine_name">Medicine name</string>
+    <string name="btn_back">Back</string>
+</resources>

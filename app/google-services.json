@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "36135353679",
+    "firebase_url": "https://pma-lijekovi-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "pma-lijekovi",
+    "storage_bucket": "pma-lijekovi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36135353679:android:4355913684c0830190d93a",
+        "android_client_info": {
+          "package_name": "com.example.lijekovi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "36135353679-loeq679o94jvpphejnjqll9aoj96pj9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcRXUAitpefb8qsWU0IEl5JmcxdhU9vyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "36135353679-loeq679o94jvpphejnjqll9aoj96pj9d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
