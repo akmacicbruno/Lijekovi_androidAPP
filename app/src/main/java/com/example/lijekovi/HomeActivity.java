@@ -164,7 +164,8 @@ public class HomeActivity extends AppCompatActivity {
                 intent.putExtra("naziv", list.get(position).getNaziv());
                 intent.putExtra("sifra", list.get(position).getSifra());
                 intent.putExtra("proizvodac", list.get(position).getProizvodac());
-                intent.putExtra("propisana_primjena", list.get(position).getPropisana_primjena());
+                intent.putExtra("primjena_dan", list.get(position).getPrimjena_dan());
+                intent.putExtra("primjena_vrijeme", list.get(position).getPrimjena_vrijeme());
                 intent.putExtra("kolicina_na_raspolaganju", list.get(position).getKolicina_na_raspolaganju());
                 intent.putExtra("slika", list.get(position).getSlika());
                 startActivity(intent);
