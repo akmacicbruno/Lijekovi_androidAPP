@@ -8,29 +8,51 @@ public class Medicine {
     private String sifra;
     private String naziv;
     private String proizvodac;
-    private String propisana_primjena;
+    private String primjena_dan;
+    private String primjena_vrijeme;
     private String kolicina_na_raspolaganju;
-    private String korisnik_ime;
     private String slika;
-    private User user;
+
+    public void setSifra(String sifra) {
+        this.sifra = sifra;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
+
+    public void setProizvodac(String proizvodac) {
+        this.proizvodac = proizvodac;
+    }
+
+    public void setPrimjena_dan(String primjena_dan) {
+        this.primjena_dan = primjena_dan;
+    }
+
+    public void setPrimjena_vrijeme(String primjena_vrijeme) {
+        this.primjena_vrijeme = primjena_vrijeme;
+    }
+
+    public void setKolicina_na_raspolaganju(String kolicina_na_raspolaganju) {
+        this.kolicina_na_raspolaganju = kolicina_na_raspolaganju;
+    }
+
+    public void setSlika(String slika) {
+        this.slika = slika;
+    }
 
     public Medicine() {
 
     }
 
-    public Medicine(String sifra, String naziv, String proizvodac, String propisana_primjena, String kolicina_na_raspolaganju, String slika) {
+    public Medicine(String sifra, String naziv, String proizvodac, String primjena_dan, String primjena_vrijeme, String kolicina_na_raspolaganju, String slika) {
         this.sifra = sifra;
         this.naziv = naziv;
         this.proizvodac = proizvodac;
-        this.propisana_primjena = propisana_primjena;
+        this.primjena_dan = primjena_dan;
+        this.primjena_vrijeme = primjena_vrijeme;
         this.kolicina_na_raspolaganju = kolicina_na_raspolaganju;
         this.slika = slika;
-    }
-
-    public Medicine(String sifta, String naziv, User user) {
-        this.sifra = sifta;
-        this.naziv = naziv;
-        this.korisnik_ime = user.getFullName();
     }
 
     public String getSifra() {
@@ -45,8 +67,12 @@ public class Medicine {
         return proizvodac;
     }
 
-    public String getPropisana_primjena() {
-        return propisana_primjena;
+    public String getPrimjena_dan() {
+        return primjena_dan;
+    }
+
+    public String getPrimjena_vrijeme() {
+        return primjena_vrijeme;
     }
 
     public String getKolicina_na_raspolaganju() {
