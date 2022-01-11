@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 public class MedDetailActivity extends AppCompatActivity {
 
     public final String TAG = "MedDetailTAG";
+    private String sNaziv, sSifra, sProizovdac, sKolicina, sPrimjena_dan, sPrimjena_vrijeme, sSlikaUrl;
 
     @Override
     public void onBackPressed() {
@@ -36,32 +37,29 @@ public class MedDetailActivity extends AppCompatActivity {
         TextView sifra = findViewById(R.id.textView_medSifra);
         TextView pro = findViewById(R.id.textView_medProizvodac);
         TextView kol = findViewById(R.id.textView_medKolicina);
-        TextView primjena = findViewById(R.id.textView_medDan);
+        TextView primjena_dan = findViewById(R.id.textView_medDan);
+        TextView primjena_vrijeme = findViewById(R.id.textView_medVrijeme);
         ImageView slika = findViewById(R.id.imageView_lijek_slika);
         Button btn_back = (Button) findViewById(R.id.btn_back);
 
-        String naziv = "Name not found";
-        String sifra1 = "Sifra not found";
-        String pro1 = "Pro not found";
-        String kol1 = "Kol not found";
-        String primjena1 = "Primjena not found";
-        String slikaUrl;
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            naziv = extras.getString("naziv");
-            sifra1 = extras.getString("sifra");
-            pro1 = extras.getString("proizvodac");
-            kol1 = extras.getString("kolicina_na_raspolaganju");
-            primjena1 = extras.getString("propisana_primjena");
-            slikaUrl = extras.getString("slika");
-            Picasso.get().load(slikaUrl).into(slika);
+            sNaziv = extras.getString("naziv");
+            sSifra = extras.getString("sifra");
+            sProizovdac = extras.getString("proizvodac");
+            sKolicina = extras.getString("kolicina_na_raspolaganju");
+            sPrimjena_dan = extras.getString("primjena_dan");
+            sPrimjena_vrijeme = extras.getString("primjena_vrijeme");
+            sSlikaUrl = extras.getString("slika");
+            Picasso.get().load(sSlikaUrl).into(slika);
         }
-        name.setText(naziv);
-        sifra.setText(sifra1);
-        pro.setText(pro1);
-        kol.setText(kol1);
-        primjena.setText(primjena1);
+
+        name.setText(sNaziv);
+        sifra.setText(sSifra);
+        pro.setText(sProizovdac);
+        kol.setText(sKolicina);
+        primjena_dan.setText(sPrimjena_dan);
+        primjena_vrijeme.setText(sPrimjena_vrijeme);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +69,5 @@ public class MedDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        Log.d("SIFRA", "SIFRA: " + sifra1);
     }
 }
