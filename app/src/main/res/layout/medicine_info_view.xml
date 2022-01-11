@@ -87,7 +87,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="10dp"
         android:paddingEnd="10dp"
-        android:text="@string/lbl_usage"
+        android:text="@string/lbl_usage_day"
         android:textColor="#B3FFFFFF"
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
