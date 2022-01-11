@@ -35,4 +35,14 @@
     <string name="no_usage_time">Usage time not found</string>
     <string name="lbl_medicine_name">Medicine name</string>
     <string name="btn_back">Back</string>
+    <!-- NEW MEDICINE ACTIVITY -->
+    <string name="medNew_title">Add new medicine</string>
+    <string name="medNew_name">Enter medicine name</string>
+    <string name="medNew_code">Enter medicine code</string>
+    <string name="medNew_producer">Enter medicine producer</string>
+    <string name="medNew_quantity">Enter medicine quantity</string>
+    <string name="medNew_usageDay">Enter usage day/s</string>
+    <string name="medNew_UsageTime">Enter usage time</string>
+    <string name="btn_medNew_image">Load image</string>
+    <string name="btn_medNew_medicine">Add medicine</string>
 </resources>
