@@ -64,7 +64,7 @@ public class AdapterHomeActivity extends RecyclerView.Adapter<AdapterHomeActivit
         Medicine med = list.get(position);
         viewHolder.tvHolderNazivLijeka.setText(med.getNaziv());
         viewHolder.tvHolderProizvodac.setText(med.getProizvodac());
-        viewHolder.tvHolderUpotreba.setText(med.getPropisana_primjena());
+        viewHolder.tvHolderUpotreba.setText(med.getPrimjena_dan());
         Picasso.get().load(med.getSlika()).into(viewHolder.tvHolderSlikaLijeka);
 
         if (med.getNaziv().isEmpty()) {
@@ -73,7 +73,7 @@ public class AdapterHomeActivity extends RecyclerView.Adapter<AdapterHomeActivit
         if (med.getProizvodac().isEmpty()){
             viewHolder.tvHolderProizvodac.setText("No data");
         }
-        if (med.getPropisana_primjena().isEmpty()){
+        if (med.getPrimjena_dan().isEmpty()){
             viewHolder.tvHolderUpotreba.setText("No data");
         }
     }
