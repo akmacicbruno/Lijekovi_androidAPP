@@ -31,4 +31,13 @@
     <string name="no_usage_time">Vrijeme nije pronađeno</string>
     <string name="lbl_medicine_name">Ime lijeka</string>
     <string name="btn_back">Nazad</string>
+    <string name="medNew_title">Dodaj novi lijek</string>
+    <string name="medNew_name">Unesite ime lijeka</string>
+    <string name="medNew_code">Unesite šifru lijeka</string>
+    <string name="medNew_producer">Unesite ime proizvođača</string>
+    <string name="medNew_quantity">Unesite količinu</string>
+    <string name="medNew_usageDay">Upišite uporabu lijeka po danima</string>
+    <string name="medNew_UsageTime">Upišite uporabu lijeka po vremenu</string>
+    <string name="btn_medNew_image">Učitajte fotografiju</string>
+    <string name="btn_medNew_medicine">Dodaj lijek</string>
 </resources>
