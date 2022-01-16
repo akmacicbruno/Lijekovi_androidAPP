@@ -10,13 +10,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -39,8 +44,10 @@ public class HomeActivity extends AppCompatActivity {
 
     AdapterHomeActivity myAdapter;
 
-    Button btn_logout;
+    ImageButton btn_logout;
     FloatingActionButton btn_add_new;
+
+    TextView tv_name, tv_oib;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +57,36 @@ public class HomeActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance().getReference("lijekovi");
 //        database_korisnik_lijek = FirebaseDatabase.getInstance().getReference("korisnikov_lijek");
-//        database_korisnik = FirebaseDatabase.getInstance().getReference("korisnici");
+        database_korisnik = FirebaseDatabase.getInstance().getReference("korisnici");
 
         list_users = new ArrayList<>();
         list = new ArrayList<>();
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.d("userEmail","email: " + user.getUid());
+        Query userEmailQuery = database_korisnik.orderByChild("email").equalTo(user.getEmail());
+        userEmailQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot usersSnapshot : snapshot.getChildren()) {
+                    User user7 = usersSnapshot.getValue(User.class);
+                    tv_name = (TextView) findViewById(R.id.textView_profile_name);
+                    tv_oib = (TextView) findViewById(R.id.textView_profile_oib);
+
+                    tv_name.setText(user7.getPuno_ime());
+                    tv_oib.setText(user7.getOib());
+                    Log.d("userSnap", "oib: " + user7.getOib());
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("userSnapERROR", "Fail");
+            }
+        });
 
 
         setAdapter();
@@ -125,7 +157,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-        btn_logout = (Button) findViewById(R.id.btn_logout);
+        btn_logout = (ImageButton) findViewById(R.id.btn_logout);
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

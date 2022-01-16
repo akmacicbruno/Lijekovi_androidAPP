@@ -33,6 +33,10 @@ public class User {
         return oib;
     }
 
+    public String getPuno_ime() {
+        return puno_ime;
+    }
+
     public String getFullName() {
         return puno_ime;
     }
