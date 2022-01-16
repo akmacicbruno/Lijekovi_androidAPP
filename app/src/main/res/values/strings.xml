@@ -18,6 +18,9 @@
     <!-- USER INFO VIEW -->
     <string name="no_oib">OIB not found</string>
     <string name="no_name">Name not found</string>
+    <!-- HOME -->
+    <string name="lbl_welcome">Welcome!</string>
+    <string name="lbl_currentMeds">Currently using meds</string>
     <!-- MEDICINE INFO VIEW & ACTIVITY MED DETAIL-->
     <string name="no_medicine_name">Medicine not found</string>
     <string name="lbl_producer">Producer:</string>
