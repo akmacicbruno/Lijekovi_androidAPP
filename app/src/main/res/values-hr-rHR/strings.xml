@@ -40,4 +40,6 @@
     <string name="medNew_UsageTime">Upišite uporabu lijeka po vremenu</string>
     <string name="btn_medNew_image">Učitajte fotografiju</string>
     <string name="btn_medNew_medicine">Dodaj lijek</string>
+    <string name="lbl_welcome">Dobrodošli!</string>
+    <string name="lbl_currentMeds">Lijekovi koje trenutno uzimate</string>
 </resources>
