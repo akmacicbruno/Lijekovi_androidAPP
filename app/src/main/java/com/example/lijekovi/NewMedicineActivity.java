@@ -40,6 +40,7 @@ public class NewMedicineActivity extends AppCompatActivity {
     private Button btn_dodajLijek;
     private ImageView slika;
     private String sCurrentUser;
+    private String lastChild;
     private Integer newKey;
 
     int SELECT_PICTURE = 200;
@@ -129,7 +130,7 @@ public class NewMedicineActivity extends AppCompatActivity {
                         imgName.putFile(selectedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Toast.makeText(NewMedicineActivity.this, "Image uploaded!", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(NewMedicineActivity.this, "Image uploaded!", Toast.LENGTH_SHORT).show();
                             }
 
                         });
@@ -146,15 +147,15 @@ public class NewMedicineActivity extends AppCompatActivity {
                         Medicine new_med = new Medicine(sSifra, sIme, sProizvodac, sDani, sVrijeme, sKolicina, sSlikaUrl);
                         databaseReference.child(sSifra).setValue(new_med);
 
-                        databaseReferenceuserandmed.addListenerForSingleValueEvent(new ValueEventListener() {
+                        databaseReferenceuserandmed.limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Long nesto = snapshot.getChildrenCount();
-//                                String nesto = snapshot.getKey().toString();
-                                Log.d("TAGtest", "onDataChange: " + nesto);
-                                Integer oldKey = Integer.parseInt(nesto.toString());
-                                newKey = (oldKey +1);
-                                Log.d("Nesto", "onChildAdded: " + nesto + "---->" + newKey.toString());
+                                for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                    lastChild = childSnapshot.getKey().toString();
+                                }
+                                Log.d("TAGtest", "onDataChange: " + lastChild);
+                                newKey = (Integer.parseInt(lastChild)+1);
+                                Log.d("Nesto", "onChildAdded: " + lastChild + "---->" + newKey.toString());
 
                                 Map<String, String> korisnik_lijek = new HashMap<>();
                                 korisnik_lijek.put("id", newKey.toString());
@@ -162,6 +163,11 @@ public class NewMedicineActivity extends AppCompatActivity {
                                 korisnik_lijek.put("lijek", sSifra);
                                 Log.d("TAGtest", "newkey: " + newKey.toString());
                                 databaseReferenceuserandmed.child(newKey.toString()).setValue(korisnik_lijek);
+
+                                Toast.makeText(NewMedicineActivity.this, "Successfully added new medicine!", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(NewMedicineActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
 
                             @Override
