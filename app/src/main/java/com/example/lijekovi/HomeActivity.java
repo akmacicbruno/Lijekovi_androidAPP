@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_home);
 
         database = FirebaseDatabase.getInstance().getReference("lijekovi");
-//        database_korisnik_lijek = FirebaseDatabase.getInstance().getReference("korisnikov_lijek");
+        database_korisnik_lijek = FirebaseDatabase.getInstance().getReference("korisnikov_lijek");
         database_korisnik = FirebaseDatabase.getInstance().getReference("korisnici");
 
         list_users = new ArrayList<>();
@@ -77,6 +77,39 @@ public class HomeActivity extends AppCompatActivity {
                     tv_oib.setText(user7.getOib());
                     Log.d("userSnap", "oib: " + user7.getOib());
 
+                    Query userMedQuery = database_korisnik_lijek.orderByChild("korisnik").equalTo(user7.getOib());
+                    userMedQuery.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot lijekSnapshot : snapshot.getChildren()) {
+                                String lijek = lijekSnapshot.child("lijek").getValue(String.class);
+                                Log.d("lijekoviSifre", "sifre: " + lijek);
+                                Query MedQuery = database.orderByChild("sifra").equalTo(lijek);
+                                MedQuery.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                                            Medicine medicine = dataSnapshot.getValue(Medicine.class);
+                                            list.add(medicine);
+                                            Log.d("listMed", medicine.toString());
+                                        }
+                                        myAdapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
                 }
 
@@ -138,23 +171,23 @@ public class HomeActivity extends AppCompatActivity {
 //            }
 //        });
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                    Medicine medicine = dataSnapshot.getValue(Medicine.class);
-                    list.add(medicine);
-                    Log.d("listMed", medicine.toString());
-                }
-                myAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        database.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//
+//                    Medicine medicine = dataSnapshot.getValue(Medicine.class);
+//                    list.add(medicine);
+//                    Log.d("listMed", medicine.toString());
+//                }
+//                myAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
         btn_logout = (ImageButton) findViewById(R.id.btn_logout);
