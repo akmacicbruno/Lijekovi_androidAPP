@@ -53,21 +53,23 @@ public class LogInActivity extends AppCompatActivity{
         register = (TextView) findViewById(R.id.textView_register);
         btn_login = (Button) findViewById(R.id.btn_login);
 
+        progressbar.setVisibility(View.INVISIBLE);
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressbar.setVisibility(View.VISIBLE);
+
                 email = input_username.getText().toString();
                 password = input_password.getText().toString();
                 mAuth = FirebaseAuth.getInstance();
 
-                progressbar.setVisibility(View.VISIBLE);
-
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
                     Toast.makeText(LogInActivity.this, "Empty Credentials!", Toast.LENGTH_SHORT).show();
-                    progressbar.setVisibility(View.GONE);
+                    progressbar.setVisibility(View.INVISIBLE);
                 } else {
                     logInUser(email , password);
-                    progressbar.setVisibility(View.GONE);
+                    progressbar.setVisibility(View.INVISIBLE);
                 }
             }
         });
