@@ -206,6 +206,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, NewMedicineActivity.class);
+                intent.putExtra("PrijavljeniKorisnik", tv_oib.getText().toString());
                 startActivity(intent);
                 finish();
             }
