@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/cards_info_view_shape"
+        android:background="@drawable/card_user_info"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
