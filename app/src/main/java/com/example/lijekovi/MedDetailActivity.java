@@ -78,6 +78,7 @@ public class MedDetailActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 String nameBS = sNaziv;
                 String producerBS = sProizovdac;
+                bundle.putString("sifra", sSifra);
                 bundle.putString("naziv", nameBS);
                 bundle.putString("proizvodac", producerBS);
                 bundle.putString("dani", sPrimjena_dan);
