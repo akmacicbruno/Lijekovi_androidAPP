@@ -35,6 +35,7 @@ public class EditMedBottomSheet extends BottomSheetDialogFragment {
         EditText Producer = view.findViewById(R.id.edt_producer);
         EditText Usage_days = view.findViewById(R.id.edt_usage_days);
         EditText Usage_time = view.findViewById(R.id.edt_usage_time);
+        EditText Quantity = view.findViewById(R.id.edt_quantity);
         Button btn_edit = view.findViewById(R.id.btn_editMed);
 
         String sifraBS = (String) this.getArguments().getString("sifra");
@@ -51,11 +52,14 @@ public class EditMedBottomSheet extends BottomSheetDialogFragment {
         String timeBS = (String) this.getArguments().getString("vrijeme");
         Usage_time.setText(timeBS);
 
+        String quantityBS = (String) this.getArguments().getString("kolicina");
+        Quantity.setText(quantityBS);
+
         databaseReference = FirebaseDatabase.getInstance().getReference("lijekovi");
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Name.toString() == null || Producer.toString() == null || Usage_days.toString() == null || Usage_time.toString() == null) {
+                if (Name.getText().toString() == "" || Producer.getText().toString() == "" || Quantity.getText().toString() == "" || Usage_days.getText().toString() == "" || Usage_time.getText().toString() == "") {
                     Toast.makeText(getContext(), "All fields required!", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -64,6 +68,7 @@ public class EditMedBottomSheet extends BottomSheetDialogFragment {
                     lijek_update.put("proizvodac", Producer.getText().toString());
                     lijek_update.put("primjena_dan", Usage_days.getText().toString());
                     lijek_update.put("primjena_vrijeme", Usage_time.getText().toString());
+                    lijek_update.put("kolicina_na_raspolaganju", Quantity.getText().toString());
                     databaseReference.child(sifraBS).updateChildren(lijek_update);
                     Toast.makeText(getContext(), "Successfully updated!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), HomeActivity.class);
