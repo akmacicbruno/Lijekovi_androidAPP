@@ -13,16 +13,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.nio.BufferUnderflowException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MedDetailActivity extends AppCompatActivity {
 
     public final String TAG = "MedDetailTAG";
     private String sNaziv, sSifra, sProizovdac, sKolicina, sPrimjena_dan, sPrimjena_vrijeme, sSlikaUrl;
+    private DatabaseReference databaseReference;
 
     @Override
     public void onBackPressed() {
@@ -44,6 +50,7 @@ public class MedDetailActivity extends AppCompatActivity {
         ImageView slika = findViewById(R.id.imageView_lijek_slika);
         Button btn_back = (Button) findViewById(R.id.btn_back);
         Button btn_edit = (Button) findViewById(R.id.btn_edit);
+        Button btn_med_taken = (Button) findViewById(R.id.btn_med_taken);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -63,6 +70,10 @@ public class MedDetailActivity extends AppCompatActivity {
         kol.setText(sKolicina);
         primjena_dan.setText(sPrimjena_dan);
         primjena_vrijeme.setText(sPrimjena_vrijeme);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("lijekovi");
+        Integer KolicinaINT = Integer.parseInt(sKolicina);
+        String NovaKolicina = String.valueOf(KolicinaINT-1);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +99,18 @@ public class MedDetailActivity extends AppCompatActivity {
                 EditMedBottomSheet bottomSheet = new EditMedBottomSheet();
                 bottomSheet.setArguments(bundle);
                 bottomSheet.show(getSupportFragmentManager(), "TAG");
+            }
+        });
+        btn_med_taken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, Object> lijek_update = new HashMap<>();
+                lijek_update.put("kolicina_na_raspolaganju", NovaKolicina);
+                databaseReference.child(sSifra).updateChildren(lijek_update);
+                Toast.makeText(MedDetailActivity.this, "Successfully updated!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MedDetailActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }
