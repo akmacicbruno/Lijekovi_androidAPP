@@ -131,21 +131,40 @@ public class NewMedicineActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                                Toast.makeText(NewMedicineActivity.this, "Image uploaded!", Toast.LENGTH_SHORT).show();
+                                imgName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Uri downloadUrl = uri;
+                                        Toast.makeText(NewMedicineActivity.this, "Image uploaded!" + downloadUrl, Toast.LENGTH_SHORT).show();
+                                        sIme = ime.getText().toString();
+                                        sSifra = sifra.getText().toString();
+                                        sProizvodac = proizvodac.getText().toString();
+                                        sKolicina = kolicina.getText().toString();
+                                        sDani = dani.getText().toString();
+                                        sVrijeme = vrijeme.getText().toString();
+                                        sSlikaUrl = downloadUrl.toString();
+
+                                        Log.d("TAGslikaurl", "onClick: " + sSlikaUrl);
+
+                                        Medicine new_med = new Medicine(sSifra, sIme, sProizvodac, sDani, sVrijeme, sKolicina, sSlikaUrl);
+                                        databaseReference.child(sSifra).setValue(new_med);
+                                    }
+                                });
                             }
 
                         });
-                        sIme = ime.getText().toString();
+//                        sIme = ime.getText().toString();
                         sSifra = sifra.getText().toString();
-                        sProizvodac = proizvodac.getText().toString();
-                        sKolicina = kolicina.getText().toString();
-                        sDani = dani.getText().toString();
-                        sVrijeme = vrijeme.getText().toString();
-                        sSlikaUrl = imgName.getDownloadUrl().toString();
-
-                        Log.d("TAGslikaurl", "onClick: " + sSlikaUrl);
-
-                        Medicine new_med = new Medicine(sSifra, sIme, sProizvodac, sDani, sVrijeme, sKolicina, sSlikaUrl);
-                        databaseReference.child(sSifra).setValue(new_med);
+//                        sProizvodac = proizvodac.getText().toString();
+//                        sKolicina = kolicina.getText().toString();
+//                        sDani = dani.getText().toString();
+//                        sVrijeme = vrijeme.getText().toString();
+//                        sSlikaUrl = imgName.getDownloadUrl().toString();
+//
+//                        Log.d("TAGslikaurl", "onClick: " + sSlikaUrl);
+//
+//                        Medicine new_med = new Medicine(sSifra, sIme, sProizvodac, sDani, sVrijeme, sKolicina, sSlikaUrl);
+//                        databaseReference.child(sSifra).setValue(new_med);
 
                         databaseReferenceuserandmed.limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

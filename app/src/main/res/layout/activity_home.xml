@@ -118,9 +118,11 @@
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:visibility="visible"
+        app:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="30dp"
         app:srcCompat="@android:drawable/ic_menu_add" />
 </androidx.constraintlayout.widget.ConstraintLayout>

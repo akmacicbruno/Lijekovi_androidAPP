@@ -42,4 +42,6 @@
     <string name="btn_medNew_medicine">Dodaj lijek</string>
     <string name="lbl_welcome">Dobrodošli!</string>
     <string name="lbl_currentMeds">Lijekovi koje trenutno uzimate</string>
+    <string name="btn_edit">Uredi</string>
+    <string name="lbl_edit_medicine">Uredi podatke o lijeku</string>
 </resources>

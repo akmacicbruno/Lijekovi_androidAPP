@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.nio.BufferUnderflowException;
+
 
 public class MedDetailActivity extends AppCompatActivity {
 
@@ -41,6 +43,7 @@ public class MedDetailActivity extends AppCompatActivity {
         TextView primjena_vrijeme = findViewById(R.id.textView_medVrijeme);
         ImageView slika = findViewById(R.id.imageView_lijek_slika);
         Button btn_back = (Button) findViewById(R.id.btn_back);
+        Button btn_edit = (Button) findViewById(R.id.btn_edit);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -67,6 +70,22 @@ public class MedDetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(MedDetailActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                String nameBS = sNaziv;
+                String producerBS = sProizovdac;
+                bundle.putString("naziv", nameBS);
+                bundle.putString("proizvodac", producerBS);
+                bundle.putString("dani", sPrimjena_dan);
+                bundle.putString("vrijeme", sPrimjena_vrijeme);
+
+                EditMedBottomSheet bottomSheet = new EditMedBottomSheet();
+                bottomSheet.setArguments(bundle);
+                bottomSheet.show(getSupportFragmentManager(), "TAG");
             }
         });
     }
