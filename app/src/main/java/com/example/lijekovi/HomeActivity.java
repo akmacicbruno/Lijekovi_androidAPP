@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,6 +85,7 @@ public class HomeActivity extends AppCompatActivity {
                             for (DataSnapshot lijekSnapshot : snapshot.getChildren()) {
                                 String lijek = lijekSnapshot.child("lijek").getValue(String.class);
                                 Log.d("lijekoviSifre", "sifre: " + lijek);
+
                                 Query MedQuery = database.orderByChild("sifra").equalTo(lijek);
                                 MedQuery.addValueEventListener(new ValueEventListener() {
                                     @Override
@@ -99,7 +101,7 @@ public class HomeActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
-
+                                        Toast.makeText(HomeActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -107,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            Toast.makeText(HomeActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -117,77 +119,10 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("userSnapERROR", "Fail");
+                Toast.makeText(HomeActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
             }
         });
-
-
         setAdapter();
-
-
-
-//        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-//        databaseReference= rootRef.child("korisnikov_lijek");
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-//                    String theraid = dataSnapshot1.child("korisnik").getValue(String.class);
-//                    String theraid2 = dataSnapshot1.child("lijek").getValue(String.class);
-//
-//                    DatabaseReference userRef = rootRef.child("korisnici").child(theraid);
-//                    DatabaseReference lijekRef = rootRef.child("lijekovi").child(theraid2);
-//                    userRef.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot userSnapshot) {
-//                            User user = userSnapshot.getValue(User.class);
-//                            list_users.add(user);
-//                            Log.d("listUser", user.toString());
-//                        }
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//                            throw databaseError.toException();
-//                        }
-//                    });
-//                    lijekRef.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot userSnapshot) {
-//                            Medicine medicine = userSnapshot.getValue(Medicine.class);
-//                            list.add(medicine);
-//                            Log.d("listMed", medicine.toString());
-//                        }
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//                            throw databaseError.toException();
-//                        }
-//                    });
-//                    myAdapter.notifyDataSetChanged();
-//
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                throw databaseError.toException();
-//            }
-//        });
-
-//        database.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//
-//                    Medicine medicine = dataSnapshot.getValue(Medicine.class);
-//                    list.add(medicine);
-//                    Log.d("listMed", medicine.toString());
-//                }
-//                myAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
 
         btn_logout = (ImageButton) findViewById(R.id.btn_logout);
