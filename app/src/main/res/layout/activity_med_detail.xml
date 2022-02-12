@@ -11,6 +11,20 @@
     android:paddingBottom="10dp"
     tools:context=".MedDetailActivity">
 
+    <ImageButton
+        android:id="@+id/imgBtn_back1"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/blue"
+        android:elevation="25dp"
+        android:tint="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/homeAsUpIndicator"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <ImageView
         android:id="@+id/imageView_lijek_slika"
         android:layout_width="0dp"
@@ -192,7 +206,7 @@
         android:textSize="20sp"
         app:icon="@drawable/ic_edit"
         app:iconGravity="textStart"
-        app:layout_constraintBottom_toTopOf="@+id/btn_back"
+        app:layout_constraintBottom_toTopOf="@+id/btn_delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -204,20 +218,21 @@
         android:layout_marginEnd="10dp"
         android:text="@string/btn_taken"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_back"
+        app:layout_constraintBottom_toTopOf="@+id/btn_delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/btn_edit" />
 
     <Button
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_delete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:text="@string/btn_back"
+        android:backgroundTint="@color/red"
+        android:text="@string/btn_delete"
         android:textSize="20sp"
-        app:icon="@drawable/ic_back"
+        app:icon="@drawable/ic_delete"
         app:iconGravity="textStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
