@@ -41,6 +41,13 @@
     <string name="btn_edit">Edit</string>
     <string name="lbl_edit_medicine">Edit medicine info</string>
     <string name="btn_taken">Medicine taken</string>
+    <string name="btn_delete">Delete</string>
+    <string name="dialog_delete_title">Delete medicine</string>
+    <string name="dialog_delete_question">Are you sure you want to permanently delete medicine?</string>
+    <string name="dialog_take_title">Take a medicine</string>
+    <string name="dialog_take_question">Are you sure you want to take the medicine?</string>
+    <string name="dialog_confirm">Yes</string>
+    <string name="dialog_cancel">Cancel</string>
     <!-- NEW MEDICINE ACTIVITY -->
     <string name="medNew_title">Add new medicine</string>
     <string name="medNew_name">Enter medicine name</string>

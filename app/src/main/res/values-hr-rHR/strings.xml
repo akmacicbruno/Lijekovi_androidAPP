@@ -45,4 +45,11 @@
     <string name="btn_edit">Uredi</string>
     <string name="lbl_edit_medicine">Uredi podatke o lijeku</string>
     <string name="btn_taken">Lijek popijen</string>
+    <string name="btn_delete">Obriši</string>
+    <string name="dialog_delete_title">Obriši lijek</string>
+    <string name="dialog_delete_question">Jeste li sigurno da želite trajno obrisati ovaj lijek?</string>
+    <string name="dialog_take_title">Uzmi lijek</string>
+    <string name="dialog_take_question">Jeste li sigurni da želite uzeti lijek?</string>
+    <string name="dialog_confirm">Da</string>
+    <string name="dialog_cancel">Odustani</string>
 </resources>
