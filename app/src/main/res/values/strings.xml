@@ -40,7 +40,7 @@
     <string name="btn_back">Back</string>
     <string name="btn_edit">Edit</string>
     <string name="lbl_edit_medicine">Edit medicine info</string>
-    <string name="btn_taken">Medicine taken</string>
+    <string name="btn_taken">Take medicine</string>
     <string name="btn_delete">Delete</string>
     <string name="dialog_delete_title">Delete medicine</string>
     <string name="dialog_delete_question">Are you sure you want to permanently delete medicine?</string>
