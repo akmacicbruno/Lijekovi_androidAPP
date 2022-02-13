@@ -1,6 +1,8 @@
 package com.example.lijekovi;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -32,35 +35,12 @@ public class AdapterHomeActivity extends RecyclerView.Adapter<AdapterHomeActivit
     @NonNull
     @Override
     public MedicineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // create a new view
-//        if (dataList.get(viewType) instanceof User)
-//        {
-//            View view = (View) LayoutInflater.from(viewGroup.getContext())
-//                    .inflate(R.layout.user_info_view, viewGroup, false);
-//            return new UserViewHolder(view);
-//        }
-//        else if (dataList.get(viewType) instanceof Medicine)
-//        {
-//            View view = (View) LayoutInflater.from(viewGroup.getContext())
-//                    .inflate(R.layout.medicine_info_view, viewGroup, false);
-//            return new MedicineViewHolder(view);
-//        }
-//        return null;
         View v = LayoutInflater.from(context).inflate(R.layout.medicine_info_view, parent, false);
         return new MedicineViewHolder(v);
 
     }
     @Override
     public void onBindViewHolder(@NonNull MedicineViewHolder viewHolder, int position) {
-//        if(dataList.get(position) instanceof User) {
-//            UserViewHolder userViewHolder = (UserViewHolder) viewHolder;
-//            userViewHolder.tvHolderImePrezime.setText(((User) dataList.get(position)).getFullName());
-//            userViewHolder.tvHolderOIB.setText(((User) dataList.get(position)).getOib());
-//        }
-//        else if(dataList.get(position) instanceof Medicine) {
-//            MedicineViewHolder medViewHolder = (MedicineViewHolder) viewHolder;
-//            medViewHolder.tvHolderNazivLijeka.setText(((Medicine) dataList.get(position)).getNaziv());
-//        }
         Medicine med = list.get(position);
         viewHolder.tvHolderNazivLijeka.setText(med.getNaziv());
         viewHolder.tvHolderProizvodac.setText(med.getProizvodac());
@@ -75,6 +55,19 @@ public class AdapterHomeActivity extends RecyclerView.Adapter<AdapterHomeActivit
         }
         if (med.getPrimjena_dan().isEmpty()){
             viewHolder.tvHolderUpotreba.setText("No data");
+        }
+
+        if (Integer.parseInt(med.getKolicina_na_raspolaganju()) <= 5) {
+            Drawable danger = context.getApplicationContext().getResources().getDrawable(R.drawable.ic_danger);
+            viewHolder.tvHolderNazivLijeka.setCompoundDrawablesWithIntrinsicBounds(danger, null, null, null);
+        }
+        if (Integer.parseInt(med.getKolicina_na_raspolaganju()) > 5 && Integer.parseInt(med.getKolicina_na_raspolaganju()) <= 10) {
+            Drawable danger = context.getApplicationContext().getResources().getDrawable(R.drawable.ic_warning);
+            viewHolder.tvHolderNazivLijeka.setCompoundDrawablesWithIntrinsicBounds(danger, null, null, null);
+        }
+        if (Integer.parseInt(med.getKolicina_na_raspolaganju()) > 10) {
+            Drawable danger = context.getApplicationContext().getResources().getDrawable(R.drawable.ic_good);
+            viewHolder.tvHolderNazivLijeka.setCompoundDrawablesWithIntrinsicBounds(danger, null, null, null);
         }
     }
     public void onBindViewHolder(@NonNull UserViewHolder viewHolder, int position) {
