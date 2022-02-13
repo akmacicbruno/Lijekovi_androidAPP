@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         list = new ArrayList<>();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Log.d("userEmail","email: " + user.getUid());
+
         Query userEmailQuery = database_korisnik.orderByChild("email").equalTo(user.getEmail());
         userEmailQuery.addValueEventListener(new ValueEventListener() {
             @Override
