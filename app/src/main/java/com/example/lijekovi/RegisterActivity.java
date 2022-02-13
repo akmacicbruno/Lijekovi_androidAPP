@@ -25,10 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
-    View view;
-    TextView input_fullname, input_oib, input_email, input_password, login;
-    Button btn_reg;
-    ProgressBar pb;
+    private TextView input_fullname, input_oib, input_email, input_password, login;
+    private Button btn_reg;
+    private ProgressBar pb_register;
 
     private FirebaseDatabase database;
     private DatabaseReference mDatabase;
@@ -46,40 +45,41 @@ public class RegisterActivity extends AppCompatActivity {
         input_email = (EditText) findViewById(R.id.reg_email);
         input_password = (EditText) findViewById(R.id.reg_pass);
         login = (TextView) findViewById(R.id.textView4);
-        pb = (ProgressBar) findViewById(R.id.progressBar_reg);
+        pb_register = (ProgressBar) findViewById(R.id.progressBar_reg);
 
+        pb_register.setVisibility(View.INVISIBLE);
         btn_reg = findViewById(R.id.btn_reg);
 
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference(KORISNICI);
         mAuthREG = FirebaseAuth.getInstance();
 
-        pb.setVisibility(View.GONE);
-
         btn_reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pb_register.setVisibility(View.VISIBLE);
                 String txtFullName = input_fullname.getText().toString();
                 String txtOIB = input_oib.getText().toString();
                 String txtEmail = input_email.getText().toString();
                 String txtPassword = input_password.getText().toString();
 
-                pb.setVisibility(view.VISIBLE);
 
                 if (TextUtils.isEmpty(txtFullName) || TextUtils.isEmpty(txtOIB)
                         || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)){
                     Toast.makeText(RegisterActivity.this, "Empty credentials!", Toast.LENGTH_SHORT).show();
-                    pb.setVisibility(view.GONE);
-                    return;
+                    pb_register.setVisibility(View.INVISIBLE);
                 }
-                if (txtPassword.length() < 6){
-                    Toast.makeText(RegisterActivity.this, "Password too short!", Toast.LENGTH_SHORT).show();
-                    pb.setVisibility(view.GONE);
+                else {
+                    if (txtPassword.length() < 6){
+                        Toast.makeText(RegisterActivity.this, "Password too short!", Toast.LENGTH_SHORT).show();
+                        pb_register.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        user = new User(txtEmail, txtPassword, txtOIB, txtFullName);
+                        registerUser(txtEmail, txtPassword);
+                        pb_register.setVisibility(View.INVISIBLE);
+                    }
                 }
-                user = new User(txtEmail, txtPassword, txtOIB, txtFullName);
-                registerUser(txtEmail, txtPassword);
-
-                pb.setVisibility(view.GONE);
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                            Toast.makeText(RegisterActivity.this, "Registration failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
