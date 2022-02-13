@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class MedDetailActivity extends AppCompatActivity {
     public final String TAG = "MedDetailTAG";
     private String sNaziv, sSifra, sProizovdac, sKolicina, sPrimjena_dan, sPrimjena_vrijeme, sSlikaUrl;
     private DatabaseReference databaseReference, databaseReferenceKorisnikovLijek;
+    private ProgressBar pb_detailMed;
 
     @Override
     public void onBackPressed() {
@@ -59,6 +61,9 @@ public class MedDetailActivity extends AppCompatActivity {
         Button btn_edit = (Button) findViewById(R.id.btn_edit);
         Button btn_med_taken = (Button) findViewById(R.id.btn_med_taken);
         Button btn_delete = (Button) findViewById(R.id.btn_delete);
+        pb_detailMed = (ProgressBar) findViewById(R.id.progressBar_detailMed);
+
+        pb_detailMed.setVisibility(View.INVISIBLE);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -99,12 +104,14 @@ public class MedDetailActivity extends AppCompatActivity {
                         Drawable danger = getApplicationContext().getResources().getDrawable(R.drawable.ic_danger);
                         kol.setCompoundDrawablesWithIntrinsicBounds(danger, null, null, null);
                     }
-                    kol.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(MedDetailActivity.this, "Test", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    if (lijekSifraINT > 5 && lijekSifraINT <= 10) {
+                        Drawable warning = getApplicationContext().getResources().getDrawable(R.drawable.ic_warning);
+                        kol.setCompoundDrawablesWithIntrinsicBounds(warning, null, null, null);
+                    }
+                    if (lijekSifraINT > 10) {
+                        Drawable warning = getApplicationContext().getResources().getDrawable(R.drawable.ic_good);
+                        kol.setCompoundDrawablesWithIntrinsicBounds(warning, null, null, null);
+                    }
 
 
                     btn_med_taken.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +128,7 @@ public class MedDetailActivity extends AppCompatActivity {
                             });
                             builder.setPositiveButton(getResources().getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    pb_detailMed.setVisibility(View.VISIBLE);
                                     Map<String, Object> lijek_update = new HashMap<>();
                                     lijek_update.put("kolicina_na_raspolaganju", NovaKolicina);
                                     databaseReference.child(sSifra).updateChildren(lijek_update);
@@ -128,6 +136,7 @@ public class MedDetailActivity extends AppCompatActivity {
                                     Integer oldKolicinaINT = Integer.parseInt(kolicina.getText().toString());
                                     String newKolicina = String.valueOf(oldKolicinaINT - 1);
                                     kolicina.setText(newKolicina);
+                                    pb_detailMed.setVisibility(View.INVISIBLE);
                                     Toast.makeText(MedDetailActivity.this, "Successfully updated!", Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -142,6 +151,7 @@ public class MedDetailActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(MedDetailActivity.this, "Fail!", Toast.LENGTH_SHORT).show();
+                pb_detailMed.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -186,6 +196,7 @@ public class MedDetailActivity extends AppCompatActivity {
                 });
                 builder.setPositiveButton(getResources().getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        pb_detailMed.setVisibility(View.VISIBLE);
                         databaseReference.child(sSifra).removeValue();
                         Query deleteKorisnikovLijek = databaseReferenceKorisnikovLijek.orderByChild("lijek").equalTo(sSifra);
                         deleteKorisnikovLijek.addValueEventListener(new ValueEventListener() {
@@ -195,6 +206,7 @@ public class MedDetailActivity extends AppCompatActivity {
                                     String key = dataSnapshot.getKey();
                                     Toast.makeText(MedDetailActivity.this, "KEY:" + key, Toast.LENGTH_SHORT).show();
                                     databaseReferenceKorisnikovLijek.child(key).removeValue();
+                                    pb_detailMed.setVisibility(View.INVISIBLE);
                                     Intent intent = new Intent(MedDetailActivity.this, HomeActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
@@ -204,6 +216,7 @@ public class MedDetailActivity extends AppCompatActivity {
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
                                 Toast.makeText(MedDetailActivity.this, "Failed to delete!", Toast.LENGTH_SHORT).show();
+                                pb_detailMed.setVisibility(View.INVISIBLE);
                             }
                         });
                     }
