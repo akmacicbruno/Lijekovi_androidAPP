@@ -22,13 +22,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LogInActivity extends AppCompatActivity{
 
-    TextView input_username, input_password, register;
-    String email, password;
-    Button btn_login;
-    FirebaseAuth mAuth;
+    private TextView input_username, input_password, register;
+    private String email, password;
+    private Button btn_login;
+    private FirebaseAuth mAuth;
     private static final String TAG = "LogInActivity";
 
-    ProgressBar progressbar;
+    private ProgressBar pb_logIN;
 
     @Override
     public void onStart() {
@@ -47,18 +47,18 @@ public class LogInActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        progressbar = (ProgressBar) findViewById(R.id.progressBar_login);
+        pb_logIN = (ProgressBar) findViewById(R.id.progressBar_login);
         input_username = (EditText) findViewById(R.id.enter_username);
         input_password = (EditText) findViewById(R.id.enetr_password);
         register = (TextView) findViewById(R.id.textView_register);
         btn_login = (Button) findViewById(R.id.btn_login);
 
-        progressbar.setVisibility(View.INVISIBLE);
+        pb_logIN.setVisibility(View.INVISIBLE);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressbar.setVisibility(View.VISIBLE);
+                pb_logIN.setVisibility(View.VISIBLE);
 
                 email = input_username.getText().toString();
                 password = input_password.getText().toString();
@@ -66,10 +66,10 @@ public class LogInActivity extends AppCompatActivity{
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
                     Toast.makeText(LogInActivity.this, "Empty Credentials!", Toast.LENGTH_SHORT).show();
-                    progressbar.setVisibility(View.INVISIBLE);
+                    pb_logIN.setVisibility(View.INVISIBLE);
                 } else {
                     logInUser(email , password);
-                    progressbar.setVisibility(View.INVISIBLE);
+                    pb_logIN.setVisibility(View.INVISIBLE);
                 }
             }
         });
