@@ -48,6 +48,7 @@
     <string name="dialog_take_question">Are you sure you want to take the medicine?</string>
     <string name="dialog_confirm">Yes</string>
     <string name="dialog_cancel">Cancel</string>
+    <string name="lbl_addQuantity">Add Quantitiy</string>
     <!-- NEW MEDICINE ACTIVITY -->
     <string name="medNew_title">Add new medicine</string>
     <string name="medNew_name">Enter medicine name</string>

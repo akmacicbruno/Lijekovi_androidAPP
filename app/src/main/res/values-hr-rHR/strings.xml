@@ -52,4 +52,5 @@
     <string name="dialog_take_question">Jeste li sigurni da želite uzeti lijek?</string>
     <string name="dialog_confirm">Da</string>
     <string name="dialog_cancel">Odustani</string>
+    <string name="lbl_addQuantity">Dodaj količine</string>
 </resources>
