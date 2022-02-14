@@ -2,7 +2,9 @@ package com.example.lijekovi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +25,9 @@ import java.util.Map;
 
 public class EditMedBottomSheet extends BottomSheetDialogFragment {
 
-    private EditText Name, Producer, Usage_days, Usage_time, Quantity;
-    private String sifraBS, nameBS, producerBS, daysBS, timeBS, quantityBS;
+    private EditText Name, Producer, Usage_days, Usage_time, Quantity, AddQuantity;
+    private String sifraBS, nameBS, producerBS, daysBS, timeBS, quantityBS, addQuantity, newQuantity;
+    private Integer addQuantityINT, editQuantity, newQuantityINT;
     private Button btn_edit;
     private DatabaseReference databaseReference;
 
@@ -39,6 +42,7 @@ public class EditMedBottomSheet extends BottomSheetDialogFragment {
         Usage_days = view.findViewById(R.id.edt_usage_days);
         Usage_time = view.findViewById(R.id.edt_usage_time);
         Quantity = view.findViewById(R.id.edt_quantity);
+        AddQuantity = view.findViewById(R.id.edt_addQuantity);
         btn_edit = view.findViewById(R.id.btn_editMed);
 
         sifraBS = (String) this.getArguments().getString("sifra");
@@ -66,12 +70,22 @@ public class EditMedBottomSheet extends BottomSheetDialogFragment {
                     Toast.makeText(getContext(), "All fields required!", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    if (!TextUtils.isEmpty(AddQuantity.getText().toString())) {
+                        addQuantity = AddQuantity.getText().toString();
+                        addQuantityINT = Integer.parseInt(addQuantity);
+                        editQuantity = Integer.parseInt(quantityBS);
+                        newQuantityINT = editQuantity + addQuantityINT;
+                        newQuantity = newQuantityINT.toString().trim();
+                    }
+                    if (TextUtils.isEmpty(AddQuantity.getText().toString())) {
+                        addQuantityINT = 0;
+                    }
                     Map<String, Object> lijek_update = new HashMap<>();
                     lijek_update.put("naziv", Name.getText().toString());
                     lijek_update.put("proizvodac", Producer.getText().toString());
                     lijek_update.put("primjena_dan", Usage_days.getText().toString());
                     lijek_update.put("primjena_vrijeme", Usage_time.getText().toString());
-                    lijek_update.put("kolicina_na_raspolaganju", Quantity.getText().toString());
+                    lijek_update.put("kolicina_na_raspolaganju", String.valueOf(Integer.parseInt(Quantity.getText().toString()) + addQuantityINT));
                     databaseReference.child(sifraBS).updateChildren(lijek_update);
                     Toast.makeText(getContext(), "Successfully updated!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), HomeActivity.class);
