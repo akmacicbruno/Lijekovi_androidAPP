@@ -73,12 +73,12 @@ public class AdapterHomeActivity extends RecyclerView.Adapter<AdapterHomeActivit
     public void onBindViewHolder(@NonNull UserViewHolder viewHolder, int position) {
         User user = list_user.get(position);
         viewHolder.tvHolderOIB.setText(user.getOib());
-        viewHolder.tvHolderImePrezime.setText(user.getFullName());
+        viewHolder.tvHolderImePrezime.setText(user.getPuno_ime());
 
         if (user.getOib().isEmpty()) {
             viewHolder.tvHolderOIB.setText("No data");
         }
-        if (user.getFullName().isEmpty()){
+        if (user.getPuno_ime().isEmpty()){
             viewHolder.tvHolderImePrezime.setText("No data");
         }
     }
