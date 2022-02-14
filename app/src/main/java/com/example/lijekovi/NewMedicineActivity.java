@@ -35,14 +35,11 @@ import java.util.Map;
 public class NewMedicineActivity extends AppCompatActivity {
 
     private EditText ime, sifra, proizvodac, kolicina, dani, vrijeme;
-    private String sIme, sSifra, sProizvodac, sKolicina, sDani, sVrijeme, sSlikaUrl;
+    private String sIme, sSifra, sProizvodac, sKolicina, sDani, sVrijeme, sSlikaUrl, sCurrentUser, lastChild;
     private DatabaseReference databaseReference, databaseReferenceuserandmed;
     private ImageButton imgBtn_back;
-    private Button btn_dodajSliku;
-    private Button btn_dodajLijek;
+    private Button btn_dodajSliku, btn_dodajLijek;
     private ImageView slika;
-    private String sCurrentUser;
-    private String lastChild;
     private Integer newKey, newKeyLijek;
     private ProgressBar pb_newMed;
 

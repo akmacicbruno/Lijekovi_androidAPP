@@ -35,7 +35,12 @@ import java.util.Map;
 public class MedDetailActivity extends AppCompatActivity {
 
     public final String TAG = "MedDetailTAG";
-    private String sNaziv, sSifra, sProizovdac, sKolicina, sPrimjena_dan, sPrimjena_vrijeme, sSlikaUrl;
+    private TextView name, sifra, pro, kol, primjena_dan, primjena_vrijeme, kolicina;
+    private String sNaziv, sSifra, sProizovdac, sKolicina, sPrimjena_dan, sPrimjena_vrijeme, sSlikaUrl, NovaKolicina, newKolicina, key;
+    private Integer lijekSifraINT, KolicinaINT, oldKolicinaINT;
+    private ImageView slika;
+    private ImageButton btn_back;
+    private Button btn_edit, btn_med_taken, btn_delete;
     private DatabaseReference databaseReference, databaseReferenceKorisnikovLijek;
     private ProgressBar pb_detailMed;
 
@@ -50,17 +55,17 @@ public class MedDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_med_detail);
 
-        TextView name = findViewById(R.id.textView_medName);
-        TextView sifra = findViewById(R.id.textView_medSifra);
-        TextView pro = findViewById(R.id.textView_medProizvodac);
-        TextView kol = findViewById(R.id.textView_medKolicina);
-        TextView primjena_dan = findViewById(R.id.textView_medDan);
-        TextView primjena_vrijeme = findViewById(R.id.textView_medVrijeme);
-        ImageView slika = findViewById(R.id.imageView_lijek_slika);
-        ImageButton btn_back = (ImageButton) findViewById(R.id.imgBtn_back1);
-        Button btn_edit = (Button) findViewById(R.id.btn_edit);
-        Button btn_med_taken = (Button) findViewById(R.id.btn_med_taken);
-        Button btn_delete = (Button) findViewById(R.id.btn_delete);
+        name = findViewById(R.id.textView_medName);
+        sifra = findViewById(R.id.textView_medSifra);
+        pro = findViewById(R.id.textView_medProizvodac);
+        kol = findViewById(R.id.textView_medKolicina);
+        primjena_dan = findViewById(R.id.textView_medDan);
+        primjena_vrijeme = findViewById(R.id.textView_medVrijeme);
+        slika = findViewById(R.id.imageView_lijek_slika);
+        btn_back = (ImageButton) findViewById(R.id.imgBtn_back1);
+        btn_edit = (Button) findViewById(R.id.btn_edit);
+        btn_med_taken = (Button) findViewById(R.id.btn_med_taken);
+        btn_delete = (Button) findViewById(R.id.btn_delete);
         pb_detailMed = (ProgressBar) findViewById(R.id.progressBar_detailMed);
 
         pb_detailMed.setVisibility(View.INVISIBLE);
@@ -86,7 +91,7 @@ public class MedDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     String lijekKol = dataSnapshot.child("kolicina_na_raspolaganju").getValue(String.class);
-                    Integer lijekSifraINT = Integer.parseInt(lijekKol);
+                    lijekSifraINT = Integer.parseInt(lijekKol);
                     if (lijekSifraINT <= 0) {
                         btn_med_taken.setEnabled(false);
                     }
@@ -97,8 +102,8 @@ public class MedDetailActivity extends AppCompatActivity {
                     primjena_dan.setText(sPrimjena_dan);
                     primjena_vrijeme.setText(sPrimjena_vrijeme);
 
-                    Integer KolicinaINT = Integer.parseInt(kol.getText().toString());
-                    String NovaKolicina = String.valueOf(KolicinaINT-1);
+                    KolicinaINT = Integer.parseInt(kol.getText().toString());
+                    NovaKolicina = String.valueOf(KolicinaINT-1);
 
                     if (lijekSifraINT <= 5) {
                         Drawable danger = getApplicationContext().getResources().getDrawable(R.drawable.ic_danger);
@@ -132,9 +137,9 @@ public class MedDetailActivity extends AppCompatActivity {
                                     Map<String, Object> lijek_update = new HashMap<>();
                                     lijek_update.put("kolicina_na_raspolaganju", NovaKolicina);
                                     databaseReference.child(sSifra).updateChildren(lijek_update);
-                                    TextView kolicina = (TextView) findViewById(R.id.textView_medKolicina);
-                                    Integer oldKolicinaINT = Integer.parseInt(kolicina.getText().toString());
-                                    String newKolicina = String.valueOf(oldKolicinaINT - 1);
+                                    kolicina = (TextView) findViewById(R.id.textView_medKolicina);
+                                    oldKolicinaINT = Integer.parseInt(kolicina.getText().toString());
+                                    newKolicina = String.valueOf(oldKolicinaINT - 1);
                                     kolicina.setText(newKolicina);
                                     pb_detailMed.setVisibility(View.INVISIBLE);
                                     Toast.makeText(MedDetailActivity.this, "Successfully updated!", Toast.LENGTH_SHORT).show();
@@ -203,7 +208,7 @@ public class MedDetailActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                    String key = dataSnapshot.getKey();
+                                    key = dataSnapshot.getKey();
                                     Toast.makeText(MedDetailActivity.this, "KEY:" + key, Toast.LENGTH_SHORT).show();
                                     databaseReferenceKorisnikovLijek.child(key).removeValue();
                                     pb_detailMed.setVisibility(View.INVISIBLE);

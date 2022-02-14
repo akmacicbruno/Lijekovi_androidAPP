@@ -2,6 +2,7 @@ package com.example.lijekovi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,9 @@ import java.util.Map;
 
 public class EditMedBottomSheet extends BottomSheetDialogFragment {
 
-    TextView naziv;
+    private EditText Name, Producer, Usage_days, Usage_time, Quantity;
+    private String sifraBS, nameBS, producerBS, daysBS, timeBS, quantityBS;
+    private Button btn_edit;
     private DatabaseReference databaseReference;
 
     public EditMedBottomSheet() {
@@ -31,35 +34,35 @@ public class EditMedBottomSheet extends BottomSheetDialogFragment {
     public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saved){
         View view = inflater.inflate(R.layout.bottom_sheet_edit_med, container, false);
 
-        EditText Name = view.findViewById(R.id.edt_name);
-        EditText Producer = view.findViewById(R.id.edt_producer);
-        EditText Usage_days = view.findViewById(R.id.edt_usage_days);
-        EditText Usage_time = view.findViewById(R.id.edt_usage_time);
-        EditText Quantity = view.findViewById(R.id.edt_quantity);
-        Button btn_edit = view.findViewById(R.id.btn_editMed);
+        Name = view.findViewById(R.id.edt_name);
+        Producer = view.findViewById(R.id.edt_producer);
+        Usage_days = view.findViewById(R.id.edt_usage_days);
+        Usage_time = view.findViewById(R.id.edt_usage_time);
+        Quantity = view.findViewById(R.id.edt_quantity);
+        btn_edit = view.findViewById(R.id.btn_editMed);
 
-        String sifraBS = (String) this.getArguments().getString("sifra");
+        sifraBS = (String) this.getArguments().getString("sifra");
 
-        String nameBS = (String) this.getArguments().getString("naziv");
+        nameBS = (String) this.getArguments().getString("naziv");
         Name.setText(nameBS);
 
-        String producerBS = (String) this.getArguments().getString("proizvodac");
+        producerBS = (String) this.getArguments().getString("proizvodac");
         Producer.setText(producerBS);
 
-        String daysBS = (String) this.getArguments().getString("dani");
+        daysBS = (String) this.getArguments().getString("dani");
         Usage_days.setText(daysBS);
 
-        String timeBS = (String) this.getArguments().getString("vrijeme");
+        timeBS = (String) this.getArguments().getString("vrijeme");
         Usage_time.setText(timeBS);
 
-        String quantityBS = (String) this.getArguments().getString("kolicina");
+        quantityBS = (String) this.getArguments().getString("kolicina");
         Quantity.setText(quantityBS);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("lijekovi");
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Name.getText().toString() == "" || Producer.getText().toString() == "" || Quantity.getText().toString() == "" || Usage_days.getText().toString() == "" || Usage_time.getText().toString() == "") {
+                if (TextUtils.isEmpty(Name.getText().toString()) || TextUtils.isEmpty(Producer.getText().toString())|| TextUtils.isEmpty(Quantity.getText().toString()) || TextUtils.isEmpty(Usage_days.getText().toString()) || TextUtils.isEmpty(Usage_time.getText().toString()) ) {
                     Toast.makeText(getContext(), "All fields required!", Toast.LENGTH_SHORT).show();
                 }
                 else {
